@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+
+pydantic
+pydantic-settings
+
+python-dotenv
+
+langchain
+langchain_community
+pypdf
+uuid
+langchain-text-splitters
+rank_bm25
+langchain_chroma
+python-multipart

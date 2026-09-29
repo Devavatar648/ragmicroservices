@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+
+pydantic
+pydantic-settings
+
+python-dotenv
+
+langchain_google_genai
+langsmith
+
+numpy
+pip-system-certs
