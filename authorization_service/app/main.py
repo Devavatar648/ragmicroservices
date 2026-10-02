@@ -2,7 +2,7 @@ import uvicorn
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.api.v1.routes import router
@@ -13,7 +13,16 @@ app = FastAPI(
     version = settings.APP_VERSION,
 )
 
+
+
 app.include_router(router, prefix='/api/v1')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(UserNotFoundException)
 async def todo_not_found_handler(

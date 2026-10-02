@@ -54,6 +54,7 @@ class LoginResponse(BaseModel):
     email : str
     role : str
 
+
     model_config = ConfigDict(
         from_attributes=True
     )

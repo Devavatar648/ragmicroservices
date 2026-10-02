@@ -1,5 +1,4 @@
 import bcrypt
-
 from app.models.user import User
 from app.repositories.user_repositories import UserRepository
 from app.schemas.user import UserCreate, UserUpdate, UserResponse, LoginRequest, LoginResponse
@@ -41,19 +40,19 @@ class UserService:
 
         if not user_data:
             raise UserNotFoundException(user.email)
-        
+
         if not self.password_service.compare_password(user.password, user_data.password):
             raise ExceptionHandler('Invalid email or password')
-    
+
         return user_data
-        
-    
+
+
     def get_users(self)->list[UserResponse]:
         return self.repository.get_all_users()
-    
+
     def get_user_details(self, user_id:str)->User:
         return self.repository.get_user_by_userId(user_id)
-    
+
     def update_user(self, user_id:str, user_update:UserUpdate)->UserResponse:
         # 1. Check if user exists
         db_user = self.repository.get_user_by_userId(user_id)
@@ -69,6 +68,18 @@ class UserService:
 
         # 4. Pass clean data to the repository
         return self.repository.update_user(db_user, update_data)
+    
+
+    def delete_user(self, user_id: str) -> None:
+
+        db_user = self.repository.get_user_by_userId(
+            user_id
+        )
+
+        if not db_user:
+            raise UserNotFoundException(user_id)
+
+        self.repository.delete_user(db_user)
 
 
 

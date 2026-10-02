@@ -29,3 +29,12 @@ def get_user_by_id(user_id:str, service:UserService = Depends(get_user_service))
 @router.patch('/{user_id}', response_model=UserResponse, status_code=status.HTTP_200_OK)
 def update_user_by_id(user_id:str, user_data:UserUpdate, service:UserService = Depends(get_user_service))->UserResponse:
     return service.update_user(user_id, user_data)
+
+@router.delete('/{user_id}',status_code=status.HTTP_200_OK)
+def delete_user(user_id: str,service: UserService = Depends(get_user_service)):
+    
+    service.delete_user(user_id)
+
+    return {
+        "message": f"User {user_id} deleted successfully"
+    }
